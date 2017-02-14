@@ -13,5 +13,5 @@ api.get('/data', async (ctx, next) => {
   ctx.body = {status:"0",msg:"succss",data:"hello"}
 });
 
-router.use('/api', api.routes(), api.allowedMethods())
-export default router;
+root.use('/api', api.routes(), api.allowedMethods())
+export default root;

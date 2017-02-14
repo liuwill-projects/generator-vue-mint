@@ -10,7 +10,7 @@ var myWebpackConfig = {
   },
   output: {
     path: './server/public/assets',
-    publicPath: './assets/',
+    publicPath: '/assets/',
     filename: '[name].[chunkhash:8].js',
     //filename: '[name].[hash:8].js',
     //filename: '[name].[contenthash:8].js',
@@ -24,18 +24,18 @@ var myWebpackConfig = {
     loaders: [
       {
         test: /\.vue$/,
-        loader: 'vue'
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
         // excluding some local linked packages.
         // for normal use cases only node_modules is needed.
         exclude: /node_modules|vue\/dist|vue-router\/|vue-loader\/|vue-hot-reload-api\//,
-        loader: 'babel'
+        loader: 'babel-loader'
       },
       { 
         test: /\.css$/, 
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader") 
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }) 
       },
       { test: /\.json$/, loader: "json-loader" },
       {
@@ -43,15 +43,6 @@ var myWebpackConfig = {
           loader : 'file-loader'
       }
     ]
-  },
-  babel: {
-    presets: ['es2015'],
-    plugins: ['transform-runtime',["component", [
-      {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-default"
-      }
-    ]]]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
@@ -62,10 +53,11 @@ var myWebpackConfig = {
     }),
     new HtmlWebpackPlugin({
         title: 'My App',
-        template: './server/views/index.html',
-        filename: './views/index.html'
+        template: './views/index.html',
+        filename: '../../views/index.html'
     }),
-    new ExtractTextPlugin("[name].[contenthash:8].css", {
+    new ExtractTextPlugin({
+        filename:"[name].[contenthash:8].css",
         allChunks: true
     }),
   ]
