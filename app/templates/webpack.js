@@ -38,6 +38,7 @@ var myWebpackConfig = {
         loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }) 
       },
       { test: /\.json$/, loader: "json-loader" },
+      //{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
       {
           test   : /\.(ttf|eot|svg|svg|woff|woff(2))(\?t\=[0-9]+)?$/,
           loader : 'file-loader'
